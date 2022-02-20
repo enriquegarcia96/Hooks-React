@@ -6,11 +6,13 @@ import ReactDOM from "react-dom";
 //import CounterWithCustomHook from "./components/01-useState/CounterWithCustomHook";
 //import CounterApp from "./components/01-useState/Counter.App";
 //import HooksApp from "./HooksApp";
-import { MultipleCustomHook } from "./components/03-examples/MultipleCustomHook";
+//import { MultipleCustomHook } from "./components/03-examples/MultipleCustomHook";
+//import { FocusScreen } from "./components/04-useRef/FocusScreen";
+import { RealExampleRef } from "./components/04-useRef/RealExampleRef";
 
 ReactDOM.render(
   
-  <MultipleCustomHook />,
+  <RealExampleRef />,
 
   document.getElementById("root")
 );
