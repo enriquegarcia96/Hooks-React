@@ -8,11 +8,12 @@ import ReactDOM from "react-dom";
 //import HooksApp from "./HooksApp";
 //import { MultipleCustomHook } from "./components/03-examples/MultipleCustomHook";
 //import { FocusScreen } from "./components/04-useRef/FocusScreen";
-import { RealExampleRef } from "./components/04-useRef/RealExampleRef";
+//import { RealExampleRef } from "./components/04-useRef/RealExampleRef";
+import { Layout } from "./components/05-useLayoutEffect/Layout";
 
 ReactDOM.render(
   
-  <RealExampleRef />,
+  <Layout />,
 
   document.getElementById("root")
 );
