@@ -1,13 +1,20 @@
-
-import React from 'react'
+import React, { useContext } from "react";
+import { UserContext } from "./UserContext";
 
 export const LoginScreen = () => {
+  const { setUser} = useContext(UserContext);
+
   return (
     <div>
+      <h1>Login Screen</h1>
+      <hr></hr>
 
-    <h1>Login Screen</h1>
-    <hr></hr>s
-
-</div>
-  )
-}
+      <button
+        className="btn btn-primary"
+        onClick={() => setUser({ id: 123, name: "enrique" })}
+      >
+        Login
+      </button>
+    </div>
+  );
+};

@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useState } from "react";
+import { AppRouter } from "./AppRouter";
+
+import { UserContext } from "./UserContext";
 
 export const MainApp = () => {
+  const [user, setUser] = useState({});
+
   return (
-    <div>
-
-    <h1>Main Screen</h1>
-    <hr></hr>s
-
-</div>
-  )
-}
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+      }}
+    >
+      <AppRouter />
+    </UserContext.Provider>
+  );
+};

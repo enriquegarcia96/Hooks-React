@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { UserContext } from "./UserContext";
 
 export const AboutScreen = () => {
+  const { user, setUser } = useContext(UserContext);
+
+  const handleClick = () => {
+    setUser({});
+  };
+
   return (
     <div>
+      <h1>About Screen</h1>
+      <hr></hr>
 
-    <h1>About Screen</h1>
-    <hr></hr>s
+      <pre> {JSON.stringify(user, null, 3)} </pre>
 
-</div>
-  )
-}
+      <button className="btn btn-warning" onClick={handleClick}>
+        Logout
+      </button>
+    </div>
+  );
+};
