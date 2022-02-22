@@ -1,20 +1,54 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 
 import "./style.css";
 import { todoReducer } from "./todoReducer";
+import { useForm } from "../../hooks/useForm";
 
-const initialState = [
-  {
-    id: new Date().getTime(),
-    desc: "Aprender React",
-    done: false,
-  },
-];
+const init = () => {
+  return JSON.parse(localStorage.getItem("todos")) || [];
+
+  //   return [
+  //     {
+  //       id: new Date().getTime(),
+  //       desc: "Aprender React",
+  //       done: false,
+  //     },
+  //   ];
+};
 
 export const TodoApp = () => {
-  const [todos] = useReducer(todoReducer, initialState);
+  /**
+   * Lo que sea que retorne el init es lo que hara el initialState
+   */
+  const [todos, dispatch] = useReducer(todoReducer, [], init);
 
-  console.log(todos);
+  const [{ description }, handleInputChange, reset] = useForm({
+    description: "",
+  });
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]); // si los todos cambian, significa que tiene que grabar en el localStorage
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (description.trim().length <= 1) return;
+
+    const newTodo = {
+      id: new Date().getTime(),
+      desc: description,
+      done: false,
+    };
+
+    const action = {
+      type: "add",
+      payload: newTodo,
+    };
+
+    dispatch(action);
+    reset();
+  };
 
   return (
     <div>
@@ -39,16 +73,21 @@ export const TodoApp = () => {
           <h4>Agregar todo</h4>
           <hr></hr>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
-              className="form-control"
               name="description"
+              className="form-control"
               placeholder="Aprender..."
               autoComplete="off"
+              onChange={handleInputChange}
+              value={description}
             />
 
-            <button className="btn btn-outline-primary mt-1 btn-block">
+            <button
+              className="btn btn-outline-primary mt-1 btn-block"
+              type="submit"
+            >
               Agregar
             </button>
           </form>
