@@ -6,14 +6,6 @@ import { useForm } from "../../hooks/useForm";
 
 const init = () => {
   return JSON.parse(localStorage.getItem("todos")) || [];
-
-  //   return [
-  //     {
-  //       id: new Date().getTime(),
-  //       desc: "Aprender React",
-  //       done: false,
-  //     },
-  //   ];
 };
 
 export const TodoApp = () => {
@@ -29,6 +21,25 @@ export const TodoApp = () => {
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]); // si los todos cambian, significa que tiene que grabar en el localStorage
+
+  //Borra una tarea
+  const handleDelete = (todoId) => {
+    // crear la accion
+    const action = {
+      type: "delete",
+      payload: todoId,
+    };
+
+    // hacer distpatch
+    dispatch(action);
+  };
+
+  const handleToggle = (todoId) => {
+    dispatch({
+      type: "toggle",
+      payload: todoId,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,10 +71,19 @@ export const TodoApp = () => {
           <ul className="list-group list-group-flush">
             {todos.map((todo, index) => (
               <li key={todo.id} className="list-group-item">
-                <p className="text-center ">
+                <p
+                  onClick={() => handleToggle(todo.id)}
+                  className={`${todo.done && "complete"}`} // para poner la palabra tachada
+                >
                   {index + 1}. {todo.desc}
                 </p>
-                <button className="btn btn-danger">Borrar</button>
+                <button
+                  onClick={() => handleDelete(todo.id)}
+                  className="btn btn-danger"
+                  type="button"
+                >
+                  Borrar
+                </button>
               </li>
             ))}
           </ul>
